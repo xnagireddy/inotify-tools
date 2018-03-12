@@ -26,3 +26,14 @@ config/
 
 /src/inotifywait
 /src/inotifywatch
+
+config.h.in
+config.h
+config.log
+config.status
+libtool
+man/inotifywait.1
+man/inotifywatch.1
+stamp-h1
+
+
