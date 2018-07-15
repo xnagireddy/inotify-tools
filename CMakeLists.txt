@@ -1,4 +1,4 @@
-project(inotifytools)
+project(inotify-tools)
 
 cmake_minimum_required(VERSION 3.2)
 
@@ -14,5 +14,5 @@ ExternalProject_Add(
     INSTALL_COMMAND make install
 )
 
-install(FILES inotifytoolsConfig.cmake DESTINATION lib/cmake/inotifytools)
+install(FILES inotify-tools-config.cmake DESTINATION lib/cmake/inotify-tools)
 
