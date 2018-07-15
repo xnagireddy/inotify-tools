@@ -15,4 +15,10 @@ ExternalProject_Add(
 )
 
 install(FILES inotify-tools-config.cmake DESTINATION lib/cmake/inotify-tools)
+install(
+    DIRECTORY
+    _install/
+    DESTINATION
+    ${CMAKE_INSTALL_PREFIX}
+)
 
