@@ -16,6 +16,8 @@ ExternalProject_Add(
 
 add_library(
     inotifytools
+    libinotifytools/src/redblack.h
+    libinotifytools/src/redblack.c
     libinotifytools/src/inotifytools/inotifytools.h
     libinotifytools/src/inotifytools.c
 )
