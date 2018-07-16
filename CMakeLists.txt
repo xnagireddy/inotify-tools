@@ -1,8 +1,27 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(inotify-tools VERSION 3.20.1)
+project(inotifytools VERSION 3.20.1)
 
 include(ExternalProject)
+
+ExternalProject_Add(
+    inotify-tools-autotools
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
+    CONFIGURE_COMMAND ./autogen.sh
+    COMMAND ./configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/_install
+    BUILD_COMMAND make
+    BUILD_IN_SOURCE 1
+    INSTALL_COMMAND make install
+)
+
+add_library(inotifytools libinotifytools/src/inotifytools/inotifytools.h libinotifytools/src/inotifytools.c)
+add_dependencies(inotifytools inotify-tools-autotools)
+
+target_include_directories(
+    inotifytools
+    PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>"
+)
 
 set(config_install_dir "lib/cmake/${PROJECT_NAME}")
 set(include_install_dir "include")
@@ -26,19 +45,6 @@ configure_package_config_file(
     INSTALL_DESTINATION "${config_install_dir}"
 )
 
-ExternalProject_Add(
-    inotify-tools-autotools
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CONFIGURE_COMMAND ./autogen.sh
-    COMMAND ./configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/_install
-    BUILD_COMMAND make
-    BUILD_IN_SOURCE 1
-    INSTALL_COMMAND make install
-)
-
-add_library(inotifytools libinotifytools/src/inotifytools/inotifytools.h libinotifytools/src/inotifytools.c)
-add_dependencies(inotifytools inotify-tools-autotools)
-
 #[[
 install(FILES inotify-tools-config.cmake DESTINATION lib/cmake/inotify-tools)
 install(
@@ -56,6 +62,11 @@ install(
     ARCHIVE DESTINATION "lib"
     RUNTIME DESTINATION "bin"
     INCLUDES DESTINATION "${include_install_dir}"
+)
+
+install(
+    FILES libinotifytools/src/inotifytools/inotifytools.h
+    DESTINATION "${include_install_dir}/inotifytools"
 )
 
 install(
