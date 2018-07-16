@@ -14,7 +14,11 @@ ExternalProject_Add(
     INSTALL_COMMAND make install
 )
 
-add_library(inotifytools libinotifytools/src/inotifytools/inotifytools.h libinotifytools/src/inotifytools.c)
+add_library(
+    inotifytools
+    libinotifytools/src/inotifytools/inotifytools.h
+    libinotifytools/src/inotifytools.c
+)
 add_dependencies(inotifytools inotify-tools-autotools)
 
 target_include_directories(
@@ -44,16 +48,6 @@ configure_package_config_file(
     "${project_config}"
     INSTALL_DESTINATION "${config_install_dir}"
 )
-
-#[[
-install(FILES inotify-tools-config.cmake DESTINATION lib/cmake/inotify-tools)
-install(
-    DIRECTORY
-    _install/
-    DESTINATION
-    ${CMAKE_INSTALL_PREFIX}
-)
-]]
 
 install(
     TARGETS inotifytools
