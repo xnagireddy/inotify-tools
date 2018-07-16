@@ -61,7 +61,9 @@ install(
 )
 
 install(
-    FILES libinotifytools/src/inotifytools/inotifytools.h
+    FILES
+        libinotifytools/src/inotifytools/inotifytools.h
+        libinotifytools/src/inotifytools/inotify.h
     DESTINATION "${include_install_dir}/inotifytools"
 )
 
